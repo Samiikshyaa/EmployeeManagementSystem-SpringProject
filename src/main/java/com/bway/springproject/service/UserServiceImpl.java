@@ -17,7 +17,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User userLogin(String email, String psw) {
-
         return userRepo.findByEmailAndPassword(email, psw);
     }
 }

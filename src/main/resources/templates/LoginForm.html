@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th ="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -7,11 +7,13 @@
 <body>
       <h1> User Login </h1>
         <hr>
+      <p>[[${error}]]</p>
       <form action = "" method = "post">
           Email: <input type="email" name="email"><br><br>
           Password: <input type="password"  name="password"><br><br>
-          <input type="submit" name="Login">
-      </form><br>
-        <a href="/signup">Create a new Account</a>
+          <input type="submit" name="Login" value="LogIn">
+      </form>
+      <br>
+      <a href="/signup">Create a new Account</a>
 </body>
 </html>
