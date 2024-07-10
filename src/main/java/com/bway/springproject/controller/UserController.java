@@ -15,11 +15,12 @@ public class UserController {
     @Autowired
     private UserService userservice;
 
-    @GetMapping( "/")
+    @GetMapping("/")
     public String index() {
         return "redirect:/login";
     }
-    @GetMapping( "/login")
+
+    @GetMapping("/login")
     public String getLogin() {
         return "LoginForm";
     }
@@ -38,7 +39,7 @@ public class UserController {
             return "Home";
         }
         model.addAttribute("error", "User not found!");
-        return "Login";
+        return "LoginForm";
     }
 
     @GetMapping("/signup")
@@ -51,6 +52,11 @@ public class UserController {
         u.setRole("Admin");
         u.setPassword(DigestUtils.md5DigestAsHex(u.getPassword().getBytes()));
         userservice.userSignup(u);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
         return "redirect:/login";
     }
 }
