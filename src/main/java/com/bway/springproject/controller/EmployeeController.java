@@ -4,7 +4,6 @@ import com.bway.springproject.model.Employee;
 import com.bway.springproject.service.DepartmentService;
 import com.bway.springproject.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,20 +19,40 @@ public class EmployeeController {
     private DepartmentService departmentService;
 
     @GetMapping("/employee")
-    public String getEmployee(Model model){
-        model.addAttribute("deplist",departmentService.getAllDept());
+    public String getEmployee(Model model) {
+        model.addAttribute("deplist", departmentService.getAllDept());
         return "EmployeeForm";
     }
+
     @PostMapping("/employee")
-    public String postEmployee(@ModelAttribute Employee employee){
+    public String postEmployee(@ModelAttribute Employee employee) {
         employeeService.addEmployee(employee);
         return "redirect:/employee";
     }
+
     @GetMapping("/employeelist")
-    public String getEmployeeList(@ModelAttribute Employee employee, Model model){
-        model.addAttribute("elist",employeeService.getAllEmployee());
-//        model.addAttribute("dlist",departmentService.getAllDept());
+    public String getEmployeeList(@ModelAttribute Employee employee, Model model) {
+        model.addAttribute("elist", employeeService.getAllEmployee());
         return "EmployeeList";
     }
+
+    @GetMapping("/employee/delete")
+    public String delete(@RequestParam int id) {
+        employeeService.deleteEmployee(id);
+        return "redirect:/employeelist";
+    }
+
+    @GetMapping("/employee/edit")
+    public String edit(@RequestParam int id, Model model) {
+        model.addAttribute("emodel", employeeService.getEmployeeById(id));
+        model.addAttribute("deplist", departmentService.getAllDept());
+        return "EmployeeEdit";
+    }
+    @PostMapping("/employee/update")
+    public String update(@ModelAttribute Employee emp) {
+        employeeService.updateEmployee(emp);
+        return "redirect:/employeelist";
+    }
+
 
 }

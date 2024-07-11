@@ -39,7 +39,8 @@
                         <td>[[${e.company}]]</td>
                         <td>[[${e.post}]]</td>
                         <td>[[${e.salary}]]</td>
-                        <td>[[${e.department.dpt_name}]]</td>
+                        <td th:if="${e.department !=null}">[[${e.department.dpt_name}]]</td>
+                        <td th:if="${e.department ==null}">Department not assigned</td>
                         <td>[[${e.joinDate}]]</td>
                         <td>[[${e.email}]]</td>
                         <td>[[${e.phone}]]</td>
