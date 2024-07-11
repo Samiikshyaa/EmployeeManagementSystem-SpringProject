@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+</head>
+<body>
+    <th:block th:insert="Header.html"></th:block>
+    <div class="container-fluid">
+        <div class="card">
+            <div class = "card-header bg-primary text-white text-center">
+                <h4>Employee List</h4>
+            </div>
+            <div class = "card-body">
+                <table class = "table">
+                    <thead>
+                    <tr>
+                        <th> First name</th>
+                        <th> Last name</th>
+                        <th> Gender</th>
+                        <th> DOB </th>
+                        <th> Company </th>
+                        <th> Post </th>
+                        <th> Salary</th>
+                        <th> Department</th>
+                        <th> Join Date</th>
+                        <th> Email</th>
+                        <th> Phone</th>
+                        <th> Address</th>
+                        <th> Projects</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="e: ${elist}">
+                        <td>[[${e.fname}]]</td>
+                        <td>[[${e.lname}]]</td>
+                        <td>[[${e.gender}]]</td>
+                        <td>[[${e.dob}]]</td>
+                        <td>[[${e.company}]]</td>
+                        <td>[[${e.post}]]</td>
+                        <td>[[${e.salary}]]</td>
+                        <td>[[${e.department.dpt_name}]]</td>
+                        <td>[[${e.joinDate}]]</td>
+                        <td>[[${e.email}]]</td>
+                        <td>[[${e.phone}]]</td>
+                        <td>[[${e.address.country}]]<br>
+                            [[${e.address.city}]]<br>
+                            [[${e.address.state}]]
+                        </td>
+                        <td>
+                            <ul>
+                                <li th:each="p:${e.projects}">[[${p}]]</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <a th:href="@{/employee/edit(id=${e.empId})}"><input type = "submit" value="Edit" class="btn btn-success"></a>
+                            <a th:href="@{/employee/delete(id=${e.empId})}"><input type = "submit" value="Delete" class="btn btn-danger"></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class = "card-footer text-center bg-warning">
+                <h6>copyright@2023</h6>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
