@@ -11,7 +11,7 @@ public class GalleryController {
 
     @GetMapping("/gallery")
     public String gallery(Model model){
-        String[] imgNames = new File("src/main/resources/static.images").list();
+        String[] imgNames = new File("C:\\Users\\Asus\\IdeaProjects\\springproject\\src\\main\\resources\\static.images").list();
         model.addAttribute("imgList",imgNames);
         return "GalleryForm";
     }

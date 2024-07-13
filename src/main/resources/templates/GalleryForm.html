@@ -13,7 +13,7 @@
       </div>
       <div class = "card-body">
           <span th:each="imgname:${imgList}">
-            <img th:src="@{'/static.images/'+${imgname}}">
+            <img th:src="@{'C:\Users\Asus\IdeaProjects\springproject\src\main\resources\static.images'+${imgname}}">
           </span>
       </div>
       <div class = "card-footer text-center bg-warning">
