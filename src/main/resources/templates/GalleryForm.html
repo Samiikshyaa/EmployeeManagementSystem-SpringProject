@@ -13,7 +13,7 @@
       </div>
       <div class = "card-body">
           <span th:each="imgname:${imgList}">
-            <img th:src="@{'/static.images/'+${imgname}}"/>
+            <img class='p-2' th:src="@{'/images/'+${imgname}}" width="450" height="300">
           </span>
       </div>
       <div class = "card-footer text-center bg-warning">
