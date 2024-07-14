@@ -2,6 +2,7 @@ package com.bway.springproject.controller;
 
 import com.bway.springproject.model.User;
 import com.bway.springproject.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +32,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String postlogin(@ModelAttribute User user, Model model) {
+    public String postlogin(@ModelAttribute User user, Model model, HttpSession session) {
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
         User usr = userservice.userLogin(user.getEmail(), user.getPassword());
         if (usr != null) {
+            session.setAttribute("validUser", usr);
+            session.setMaxInactiveInterval(200);
+
             model.addAttribute("uname", usr.getFname());
             return "Home";
         }
@@ -56,7 +60,8 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String logout(){
+    public String logout(HttpSession session){
+        session.invalidate();
         return "redirect:/login";
     }
 }

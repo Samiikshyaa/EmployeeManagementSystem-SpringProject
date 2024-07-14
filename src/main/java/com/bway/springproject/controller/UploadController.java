@@ -24,7 +24,6 @@ public class UploadController {
         if(!image.isEmpty()){
             try {
                 Files.copy(image.getInputStream(), Path.of("src/main/resources/static/images/"+image.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
-
                 model.addAttribute("message","upload success");
                 return "UploadForm";
             } catch (IOException e) {
