@@ -3,6 +3,8 @@ package com.bway.springproject.controller;
 import com.bway.springproject.model.User;
 import com.bway.springproject.service.UserService;
 import jakarta.servlet.http.HttpSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
     @Autowired
     private UserService userservice;
+
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/")
     public String index() {
@@ -36,12 +40,14 @@ public class UserController {
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
         User usr = userservice.userLogin(user.getEmail(), user.getPassword());
         if (usr != null) {
+            log.info("-----------Login Success------------");
             session.setAttribute("validUser", usr);
             session.setMaxInactiveInterval(200);
 
             model.addAttribute("uname", usr.getFname());
             return "Home";
         }
+        log.info("========Login failed========");
         model.addAttribute("error", "User not found!");
         return "LoginForm";
     }
@@ -62,6 +68,12 @@ public class UserController {
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
+        log.info("========Logout========");
         return "redirect:/login";
+    }
+
+    @GetMapping("/profile")
+    public String profile(){
+        return "Profile";
     }
 }
