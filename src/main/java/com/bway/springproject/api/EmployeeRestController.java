@@ -2,8 +2,11 @@ package com.bway.springproject.api;
 
 import com.bway.springproject.model.Employee;
 import com.bway.springproject.service.EmployeeService;
+import com.bway.springproject.testing.Calculation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
 
 import java.util.List;
 
@@ -40,5 +43,17 @@ public class EmployeeRestController {
         employeeService.updateEmployee(emp);
         return "update success";
     }
+   @GetMapping("/api/emp/j2o")
+    public String jsonToObject(){
+       RestTemplate temp = new RestTemplate();
+       Employee emp = temp.getForObject("http://localhost:8080/api/emp/12",Employee.class);
 
+       return "First Name: "+emp.getFname();
+    }
+    @GetMapping("/api/emp/ja2oa")
+    public String jsonArrayToObjArray(){
+        RestTemplate temp = new RestTemplate();
+        Employee[] emp = temp.getForObject("http://localhost:8080/api/emp/list",Employee[].class);
+        return "First Name="+emp[0].getFname();
+    }
 }
